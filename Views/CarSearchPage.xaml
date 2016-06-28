@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+		BackgroundColor="#5D6360"
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 		xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
 		xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -25,7 +26,7 @@
 	<Grid >
 	 <Grid.RowDefinitions>
 	  <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <Grid.ColumnDefinitions>
@@ -39,15 +40,12 @@
       <DataTemplate>
 		 <ViewCell>
               <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Orientation="Horizontal" Style="{StaticResource rowBackgroundStyle}" >
-
-				<Grid>
-			    	<BoxView Color="#35B768" WidthRequest="70" HeightRequest="78" VerticalOptions="Center"></BoxView>
+              <BoxView Color="#35B768" WidthRequest="10" HeightRequest="78" VerticalOptions="Start"></BoxView>
 					<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
 						WidthRequest="60" HeightRequest="75"
 						DownsampleToViewSize="true"
 						Source = "{Binding imageUrl}">
 					</ffimageloading:CachedImage>
-				</Grid>
 					<Label VerticalOptions="Center" Style="{StaticResource rowLabelStyle}" Text="{Binding name}" HorizontalOptions="Center"/>
 					<Grid Margin="10" VerticalOptions="Center" HeightRequest="30" WidthRequest="30" HorizontalOptions="EndAndExpand">
 							<abstractions:RoundedBoxView BackgroundColor="#FF5D5D" HeightRequest="20" WidthRequest="20"  

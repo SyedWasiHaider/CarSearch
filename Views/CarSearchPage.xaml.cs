@@ -8,6 +8,7 @@ namespace CarSearch
 		async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
 		{
 			var make = (CarMake)e.Item;
+			((ListView)(sender)).SelectedItem = null;
 			await Navigation.PushAsync(new CarMakeDetailView() { BindingContext = new MakeDetailViewModel(make) });
 		}
 

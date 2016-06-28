@@ -104,11 +104,14 @@
     <Reference Include="Realm">
       <HintPath>..\packages\Realm.0.76.1\lib\MonoAndroid44\Realm.dll</HintPath>
     </Reference>
-    <Reference Include="CarouselView.FormsPlugin.Android">
-      <HintPath>..\packages\CarouselView.FormsPlugin.1.0.19\lib\MonoAndroid\CarouselView.FormsPlugin.Android.dll</HintPath>
+    <Reference Include="Xamarin.Forms.CarouselView">
+      <HintPath>..\packages\Xamarin.Forms.CarouselView.2.3.0-pre1\lib\MonoAndroid10\Xamarin.Forms.CarouselView.dll</HintPath>
     </Reference>
-    <Reference Include="CarouselView.FormsPlugin.Abstractions">
-      <HintPath>..\packages\CarouselView.FormsPlugin.1.0.19\lib\MonoAndroid\CarouselView.FormsPlugin.Abstractions.dll</HintPath>
+    <Reference Include="Xamarin.Forms.CarouselView.Android">
+      <HintPath>..\packages\Xamarin.Forms.CarouselView.2.3.0-pre1\lib\MonoAndroid10\Xamarin.Forms.CarouselView.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.CarouselView.Platform">
+      <HintPath>..\packages\Xamarin.Forms.CarouselView.2.3.0-pre1\lib\MonoAndroid10\Xamarin.Forms.CarouselView.Platform.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

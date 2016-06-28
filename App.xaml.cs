@@ -8,7 +8,8 @@ namespace CarSearch
 		{
 			InitializeComponent();
 
-			var navPage = new NavigationPage(new CarSearchPage() { Title = "Awesome Possum Car Search" } ) { BarBackgroundColor = new Color(53, 183, 104) };
+			var navPage = new NavigationPage(new CarSearchPage() { Title = "Awesome Possum Car Search" } ) { BarBackgroundColor = Color.FromRgb(53, 183, 104) };
+			//navPage.Tint = 
 			MainPage = navPage;
 		}
 

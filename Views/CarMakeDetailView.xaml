@@ -4,28 +4,34 @@
 		xmlns="http://xamarin.com/schemas/2014/forms" 
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 		x:Class="CarSearch.CarMakeDetailView"
-		xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-		xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions">
-	<StackLayout>
-		<Label HorizontalOptions="Center" Text="{Binding Name}" FontSize="20"/>
-		<Label HorizontalOptions="Center" Text="Swipe Left/Right to see more" />
-		<controls:CarouselViewControl Margin="10" ItemsSource="{Binding Cars}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-    		<controls:CarouselViewControl.ItemTemplate>
+		xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+		xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
+	<StackLayout Margin="10">
+		<cv:CarouselView ItemsSource="{Binding Cars}" HorizontalOptions="FillAndExpand">
+    		<cv:CarouselView.ItemTemplate>
         		<DataTemplate>
-					<Frame BackgroundColor="Gray">
-        			<StackLayout >
+        			<StackLayout BackgroundColor="Gray" VerticalOptions="FillAndExpand">
 						<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
-							WidthRequest="200" HeightRequest="140"
+							WidthRequest="1000" HeightRequest="200"
 							DownsampleToViewSize="true"
+							Aspect="AspectFill"
+							RetryCount="10"
+							RetryDelay="500"
 							Source="{Binding imageUrl}">
 						</ffimageloading:CachedImage>
-						<Label TextColor="White" Text="{Binding name}" HeightRequest="20" />
-						<Label TextColor="White" Text="{Binding year, StringFormat='{0}'}" HeightRequest="20"/>
-					</StackLayout>
-					</Frame>
-				</DataTemplate>
-   		 	</controls:CarouselViewControl.ItemTemplate>
-		</controls:CarouselViewControl>
 
+						<StackLayout Margin="10">
+							<Label TextColor="White" Text="{Binding name}"/>
+							<Label TextColor="White" Text="{Binding year, StringFormat='Year: {0}'}" />
+							<Label TextColor="White" Text="{Binding Mpg.highway, StringFormat='MPG (Highway): {0}'}"/>
+							<Label TextColor="White" Text="{Binding Mpg.city, StringFormat='MPG (City): {0}'}"/>
+							<Label TextColor="White" Text="{Binding MSRP, StringFormat='Price (MSRP): ${0}'}"/>
+						</StackLayout>
+							
+						<Button Margin="10" BackgroundColor="Green" TextColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="Find Dealerships" />
+					</StackLayout>
+				</DataTemplate>
+   		 	</cv:CarouselView.ItemTemplate>
+		</cv:CarouselView>
 	</StackLayout>
 </ContentPage>

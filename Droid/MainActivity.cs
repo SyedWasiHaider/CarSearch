@@ -9,7 +9,6 @@ using Android.Widget;
 using Android.OS;
 using RoundedBoxView.Forms.Plugin.Droid;
 using FFImageLoading.Forms.Droid;
-using CarouselView.FormsPlugin.Android;
 
 namespace CarSearch.Droid
 {
@@ -26,7 +25,6 @@ namespace CarSearch.Droid
 			global::Xamarin.Forms.Forms.Init(this, bundle);
 			RoundedBoxViewRenderer.Init();
 			CachedImageRenderer.Init();
-			CarouselViewRenderer.Init();
 
 
 			LoadApplication(new App());
