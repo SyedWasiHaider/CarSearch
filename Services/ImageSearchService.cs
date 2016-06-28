@@ -24,7 +24,7 @@ namespace CarSearch
 	
 		public async Task<string> getImageUrl(string query)
 		{
-			var test = $"{IMAGE_SEARCH_URI}&Query='{"car " + query}'";
+			var test = $"{IMAGE_SEARCH_URI}&Query='{query}'";
 			var response = await client.GetAsync(test);
 			if (response.IsSuccessStatusCode)
 			{

@@ -74,34 +74,34 @@ namespace CarSearch
 				IsBusy = false;
 			}
 
-			//Some caching logic for the urls
-			//I'd cache the images themselves but
-			//ain't not body got time for that right now.
-			//At least this prevents me from using up all my Bing API calls (I get 5000 a day)
-			var realm = Realm.GetInstance();
-			foreach (var carMake in Cars)
-			{
-				var carImageUrl = realm.All<CarImageUrl>().First(urlObj => urlObj.name == carMake.name && urlObj.expiry < DateTimeOffset.UtcNow);
-				if (carImageUrl == null)
+				//Some caching logic for the urls
+				//I'd cache the images themselves but
+				//ain't not body got time for that right now.
+				//At least this prevents me from using up all my Bing API calls (I get 5000 a day)
+				var realm = Realm.GetInstance();
+				foreach (var carMake in Cars)
 				{
-					carMake.imageUrl = carImageUrl.url;
-				}
-				else {
-					var url = await imageSearchService.getImageUrl(carMake.name);
-					carMake.imageUrl = url;
-					realm.Write(() =>
+
+					var sillyName = carMake.name;// lol --> http://stackoverflow.com/questions/37437550/realm-dotnet-the-rhs-of-the-binary-operator-equal-should-be-a-constant-or-cl
+					var sillyDateOffset = DateTimeOffset.UtcNow;
+					var carImageUrl = realm.All<CarImageUrl>().Where(urlObj => urlObj.name == sillyName && urlObj.expiry > sillyDateOffset);
+					if (carImageUrl.Count() > 0)
 					{
-						var newCarImageUrl = realm.CreateObject<CarImageUrl>();
-						newCarImageUrl.expiry = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromDays(30));
-						newCarImageUrl.name = carMake.name;
-						newCarImageUrl.url = url;
-					});
+						carMake.imageUrl = carImageUrl.First().url;
+					}
+					else {
+						var url = await imageSearchService.getImageUrl("car " + carMake.name); //Otherwise Lincoln returns Abraham Licoln.
+						carMake.imageUrl = url;
+						realm.Write(() =>
+						{
+							var newCarImageUrl = realm.CreateObject<CarImageUrl>();
+							newCarImageUrl.expiry = DateTimeOffset.UtcNow.AddDays(30);
+							newCarImageUrl.name = carMake.name;
+							newCarImageUrl.url = url;
+						});
+					}
 				}
 			}
-
-		}
-
-
-	}
+			}
 }
 

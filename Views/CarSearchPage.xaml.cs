@@ -18,7 +18,12 @@ namespace CarSearch
 			InitializeComponent();
 			vm = new CarSearchViewModel();
 			BindingContext = vm;
-			vm.PopulateCarsByYear();
+		}
+
+		protected async  override void OnAppearing()
+		{
+			base.OnAppearing();
+			await vm.PopulateCarsByYear();
 		}
 	}
 }
