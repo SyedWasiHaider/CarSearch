@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ModernHttpClient;
 using Newtonsoft.Json.Linq;
+using Realms;
 
 namespace CarSearch
 {
@@ -26,13 +29,51 @@ namespace CarSearch
 		{
 			var test = $"{IMAGE_SEARCH_URI}&Query='{query}'";
 			var response = await client.GetAsync(test);
-			if (response.IsSuccessStatusCode)
+			try
 			{
-				var content = await response.Content.ReadAsStringAsync();
-				var temp = JToken.Parse(content);
-				return temp["d"]["results"][0]["MediaUrl"].ToString();
+				if (response.IsSuccessStatusCode)
+				{
+					var content = await response.Content.ReadAsStringAsync();
+					var temp = JToken.Parse(content);
+					return temp["d"]["results"][0]["MediaUrl"].ToString();
+				}
 			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.Message);
+				return String.Empty;
+			}
+			
 			return String.Empty;
+		}
+
+		public async Task<string[]> getImageUrls(string[] queries, string extra = "")
+		{
+			var realm = Realm.GetInstance();
+			var results = new string[queries.Length];
+			for (int i = 0; i < queries.Length; i++)
+			{
+				var sillyDateOffset = DateTimeOffset.UtcNow;
+				var sillyName = queries[i];
+				var carImageUrl = realm.All<ImageUrl>().Where(urlObj => urlObj.name == sillyName && urlObj.expiry > sillyDateOffset);
+
+				if (carImageUrl.Count() > 0)
+				{
+					results[i] = carImageUrl.First().url;
+				}
+				else {
+					results[i] = await getImageUrl(extra + queries[i]);
+					realm.Write(() =>
+					{
+						var newImageUrl = realm.CreateObject<ImageUrl>();
+						newImageUrl.expiry = DateTimeOffset.UtcNow.AddDays(30);
+						newImageUrl.name = queries[i];
+						newImageUrl.url = results[i];
+					});
+				}
+			}
+
+			return results;
 		}
 	}
 }

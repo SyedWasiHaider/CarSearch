@@ -1,6 +1,31 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="CarSearch.CarMakeDetailView">
-	<ContentPage.Content>
-		<ListView ItemsSource="{Binding modelList}"/>
-	</ContentPage.Content>
+<ContentPage 
+		x:Name="pageroot"
+		xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="CarSearch.CarMakeDetailView"
+		xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+		xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions">
+	<StackLayout>
+		<Label HorizontalOptions="Center" Text="{Binding Name}" FontSize="20"/>
+		<Label HorizontalOptions="Center" Text="Swipe Left/Right to see more" />
+		<controls:CarouselViewControl Margin="10" ItemsSource="{Binding Cars}" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+    		<controls:CarouselViewControl.ItemTemplate>
+        		<DataTemplate>
+					<Frame BackgroundColor="Gray">
+        			<StackLayout >
+						<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
+							WidthRequest="200" HeightRequest="140"
+							DownsampleToViewSize="true"
+							Source="{Binding imageUrl}">
+						</ffimageloading:CachedImage>
+						<Label TextColor="White" Text="{Binding name}" HeightRequest="20" />
+						<Label TextColor="White" Text="{Binding year, StringFormat='{0}'}" HeightRequest="20"/>
+					</StackLayout>
+					</Frame>
+				</DataTemplate>
+   		 	</controls:CarouselViewControl.ItemTemplate>
+		</controls:CarouselViewControl>
+
+	</StackLayout>
 </ContentPage>

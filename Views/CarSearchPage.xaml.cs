@@ -8,15 +8,15 @@ namespace CarSearch
 		async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
 		{
 			var make = (CarMake)e.Item;
-			await Navigation.PushAsync(new CarMakeDetailView() { BindingContext = make });
+			await Navigation.PushAsync(new CarMakeDetailView() { BindingContext = new MakeDetailViewModel(make) });
 		}
 
-		CarSearchViewModel vm;
+		SearchViewModel vm;
 
 		public CarSearchPage()
 		{
 			InitializeComponent();
-			vm = new CarSearchViewModel();
+			vm = new SearchViewModel();
 			BindingContext = vm;
 		}
 

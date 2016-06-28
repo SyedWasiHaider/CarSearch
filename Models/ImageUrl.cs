@@ -3,12 +3,11 @@ using Realms;
 
 namespace CarSearch
 {
-	public class CarImageUrl : RealmObject
+	public class ImageUrl : RealmObject
 	{
-		public CarImageUrl()
+		public ImageUrl()
 		{
 		}
-
 		public string name { get; set;}
 		public string url { get; set;}
 		public DateTimeOffset expiry { get; set;}

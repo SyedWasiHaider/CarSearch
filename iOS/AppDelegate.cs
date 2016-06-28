@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CarouselView.FormsPlugin.iOS;
 using FFImageLoading.Forms.Touch;
 using Foundation;
 using RoundedBoxView.Forms.Plugin.iOSUnified;
@@ -16,7 +17,7 @@ namespace CarSearch.iOS
 			global::Xamarin.Forms.Forms.Init();
 			RoundedBoxViewRenderer.Init();
 			CachedImageRenderer.Init();
-
+			CarouselViewRenderer.Init();
 
 			// Code for starting up the Xamarin Test Cloud Agent
 #if ENABLE_TEST_CLOUD

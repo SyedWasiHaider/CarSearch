@@ -7,6 +7,9 @@ namespace CarSearch
 	public class BaseViewModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
+		protected Lazy<CarRestService> carRestService;
+		protected Lazy<ImageSearchService> imageSearchService;
+
 
 		private bool _isBusy = false;
 		public bool IsBusy
@@ -34,7 +37,8 @@ namespace CarSearch
 
 		public BaseViewModel()
 		{
-
+			carRestService = new Lazy<CarRestService>(() => new CarRestService());
+			imageSearchService = new Lazy<ImageSearchService>(() => new ImageSearchService());
 		}
 
 	}
