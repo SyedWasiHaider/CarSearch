@@ -14,3 +14,9 @@ Using Xamarin Forms to create an awesome car search app. UX/UI choices are mostl
 * ffimageloading
 * modernhttpclient
 
+
+###Gif Demo!
+
+![alt demo](https://github.com/SyedWasiHaider/CarSearch/blob/master/quickdemo.gif)
+
+
