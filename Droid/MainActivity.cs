@@ -26,7 +26,6 @@ namespace CarSearch.Droid
 			RoundedBoxViewRenderer.Init();
 			CachedImageRenderer.Init();
 
-
 			LoadApplication(new App());
 		}
 	}

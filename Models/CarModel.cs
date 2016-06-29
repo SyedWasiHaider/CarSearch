@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace CarSearch
 {
-	public class CarModel : BaseViewModel
+	public class CarModel : BaseViewModel, ISelectable
 	{
 		public CarModel()
 		{
@@ -86,6 +86,16 @@ namespace CarSearch
 				_imageUrl = value;
 				RaisePropertyChanged();
 			}
+		}
+
+		public bool IsSelected
+		{
+			get;set;
+		}
+
+		public int index
+		{
+			get;set;
 		}
 	}
 }

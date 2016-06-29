@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace CarSearch
 	{
 		public MakeDetailViewModel(CarMake make)
 		{
-			Cars = make.modelList;
+			Cars = new ObservableCollection<CarModel>(make.modelList);
 			Name = make.name;
 			Url = make.imageUrl;
 			PopulateCarImageUrls();
@@ -87,8 +88,8 @@ namespace CarSearch
 
 		}
 
-		List<CarModel> _cars = new List<CarModel>();
-		public List<CarModel> Cars
+		ObservableCollection<CarModel> _cars = new ObservableCollection<CarModel>();
+		public ObservableCollection<CarModel> Cars
 		{
 			get
 			{

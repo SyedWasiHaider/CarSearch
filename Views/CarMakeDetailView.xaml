@@ -4,14 +4,27 @@
 		xmlns="http://xamarin.com/schemas/2014/forms" 
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 		x:Class="CarSearch.CarMakeDetailView"
+		xmlns:local="clr-namespace:CarSearch;assembly=CarSearch"
 		xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
 		xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms">
-	<StackLayout Margin="10">
-		<cv:CarouselView ItemsSource="{Binding Cars}" HorizontalOptions="FillAndExpand">
+
+	<Grid HorizontalOptions="FillAndExpand">
+	 <Grid.RowDefinitions>
+	  <RowDefinition Height="10*" />
+      <RowDefinition Height="2*" />
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+	
+	<StackLayout Grid.Row="0" Margin="10" HorizontalOptions="FillAndExpand">
+		<cv:CarouselView x:Name="bigCarCarousel" Position="{Binding Source={x:Reference horizontalPreview}, Path=ActualElementIndex}" ItemsSource="{Binding Cars}" HorizontalOptions="FillAndExpand">
     		<cv:CarouselView.ItemTemplate>
         		<DataTemplate>
         			<StackLayout BackgroundColor="Gray" VerticalOptions="FillAndExpand">
-						<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
+
+        				<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
 							WidthRequest="1000" HeightRequest="200"
 							DownsampleToViewSize="true"
 							Aspect="AspectFill"
@@ -34,4 +47,20 @@
    		 	</cv:CarouselView.ItemTemplate>
 		</cv:CarouselView>
 	</StackLayout>
+
+			<local:HorizontalImageList ActualElementIndex="{Binding Source={x:Reference bigCarCarousel}, Path=Position}"   x:Name="horizontalPreview" Grid.Row="1" IsEnabled="true" ItemsSource="{Binding Cars}"  BackgroundColor="Gray">
+				<local:HorizontalImageList.ItemTemplate>
+				<DataTemplate>
+						<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
+							WidthRequest="200" HeightRequest="140"
+							DownsampleToViewSize="true"
+							Aspect="AspectFill"
+							RetryCount="10"
+							RetryDelay="500"
+							Source="{Binding imageUrl}">
+						</ffimageloading:CachedImage>
+				</DataTemplate>
+			    </local:HorizontalImageList.ItemTemplate>
+			</local:HorizontalImageList>
+		</Grid>
 </ContentPage>

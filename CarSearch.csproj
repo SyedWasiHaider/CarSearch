@@ -58,6 +58,7 @@
     <Compile Include="ViewModels\MakeDetailViewModel.cs" />
     <Compile Include="Models\Engine.cs" />
     <Compile Include="Models\Mpg.cs" />
+    <Compile Include="Views\Custom\HorizontalImageList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
@@ -65,6 +66,7 @@
     <Folder Include="Services\" />
     <Folder Include="Helpers\" />
     <Folder Include="Views\" />
+    <Folder Include="Views\Custom\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ModernHttpClient">
