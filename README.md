@@ -7,13 +7,16 @@ Using Xamarin Forms to create an awesome car search app. UX/UI choices are mostl
 * Set startup project to iOS (since that's the only platform I've actually tested)
 * Build and Run
 
-###Some cool libraries I'm using:
+###Cool libraries / APIs I'm using:
 
 * Realm
 * Xamarin.Forms.CarouselView
-* ffimageloading
+* ffimageloading (mostly because it has downsampling support built in which is nice)
+* Xamarin GeoLocator Plugin
 * modernhttpclient
-
+* Newtonsoft JSON (Duh!!!)
+* Edmunds Vehicle API
+* Bing Search and Location API
 
 ###Gif Demo!
 
