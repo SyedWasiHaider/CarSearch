@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Realms;
+using Xamarin.Forms;
 
 namespace CarSearch
 {
@@ -18,6 +19,23 @@ namespace CarSearch
 			Url = make.imageUrl;
 			PopulateCarImageUrls();
 			PopulateCarDescriptions();
+			SearchCommand = new Command
+				(async searchObj =>
+				{
+					try
+					{
+						var zipCode = await locationService.Value.getCurrentZipCode();
+						Device.OpenUri(new Uri($"https://www.google.com/search?q={searchObj.ToString()} dealerships near {zipCode}"));
+					}
+					catch
+					{
+					}
+				});
+		}
+
+		public Command SearchCommand
+		{
+			get;set;
 		}
 
 		public async void PopulateCarDescriptions()
@@ -45,8 +63,8 @@ namespace CarSearch
 
 		public async void PopulateCarImageUrls()
 		{
-			var carNames = Cars.Select(car => (car.id + " " + car.years.First().year).Replace("_", " ")).ToArray();
-			var carUrls = await imageSearchService.Value.getImageUrls(carNames, "cars ");
+			var carNames = Cars.Select(car => car.DescriptiveName).ToArray();
+			var carUrls = await imageSearchService.Value.getImageUrls(carNames, "car ");
 			for (int i = 0; i < Cars.Count(); i++)
 			{
 				if (String.IsNullOrEmpty(carUrls[i])){

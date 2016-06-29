@@ -20,6 +20,14 @@ namespace CarSearch
 
 		//Manual or calculated properties (mostly because of how the API is setup).
 
+		public string DescriptiveName
+		{
+			get
+			{
+				return (id + " " + years.First().year).Replace("_", " ");
+			}
+		}
+
 		public int year
 		{
 			get

@@ -24,14 +24,6 @@
         		<DataTemplate>
         			<StackLayout BackgroundColor="Gray" VerticalOptions="FillAndExpand">
 
-        				<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
-							WidthRequest="1000" HeightRequest="200"
-							DownsampleToViewSize="true"
-							Aspect="AspectFill"
-							RetryCount="10"
-							RetryDelay="500"
-							Source="{Binding imageUrl}">
-						</ffimageloading:CachedImage>
 
 						<StackLayout Margin="10">
 							<Label TextColor="White" Text="{Binding name}"/>
@@ -41,7 +33,7 @@
 							<Label TextColor="White" Text="{Binding MSRP, StringFormat='Price (MSRP): ${0}'}"/>
 						</StackLayout>
 							
-						<Button Margin="10" BackgroundColor="Green" TextColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="Find Dealerships" />
+						<Button  Command="{Binding Source={x:Reference pageroot}, Path=BindingContext.SearchCommand}" CommandParameter="{Binding DescriptiveName}" Margin="10" BackgroundColor="Green" TextColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="Find Dealerships" />
 					</StackLayout>
 				</DataTemplate>
    		 	</cv:CarouselView.ItemTemplate>

@@ -33,9 +33,9 @@
       <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
-	<SearchBar BackgroundColor="#35B768" Placeholder="Car make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="#D6D6D6"/>
+	<SearchBar BackgroundColor="#35B768" Placeholder="Search Model or Make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="#D6D6D6"/>
 
-    <ListView  Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding Cars}" ItemTapped="Handle_ItemTapped">
+    <ListView  Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding Makes}" ItemTapped="Handle_ItemTapped">
 	<ListView.ItemTemplate>
       <DataTemplate>
 		 <ViewCell>

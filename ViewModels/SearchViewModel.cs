@@ -14,22 +14,24 @@ namespace CarSearch
 	public class SearchViewModel : BaseViewModel
 	{
 		
-		List<CarMake> _cars = new List<CarMake>();
-		public List<CarMake> Cars
+		List<CarMake> _makes = new List<CarMake>();
+		public List<CarMake> Makes
 		{
 			get
 			{
 				if (!String.IsNullOrEmpty(ActiveSearchTerm))
 				{
-					return _cars.FindAll(car => car.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper()));
+					return _makes.FindAll(make => make.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper()) ||
+
+										  make.modelList.Any(car => car.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper())));
 				}
 				else {
-					return _cars;
+					return _makes;
 				}
 			}
 			set
 			{
-				_cars = value;
+				_makes = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -45,7 +47,7 @@ namespace CarSearch
 			{
 				_activeSearchTerm = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("Cars");
+				RaisePropertyChanged("Makes");
 			}
 		}
 
@@ -55,11 +57,11 @@ namespace CarSearch
 
 		public async Task PopulateCarImageUrls()
 		{
-			var carNames = Cars.Select(car => car.name).ToArray();
+			var carNames = Makes.Select(car => car.name).ToArray();
 			var carUrls = await imageSearchService.Value.getImageUrls(carNames, "cars ");
-			for (int i = 0; i < Cars.Count(); i++)
+			for (int i = 0; i < Makes.Count(); i++)
 			{
-				Cars[i].imageUrl = carUrls[i];
+				Makes[i].imageUrl = carUrls[i];
 			}
 		}
 
@@ -69,7 +71,7 @@ namespace CarSearch
 			{
 				IsBusy = true;
 				var tempCars = await carRestService.Value.getAllCarsByYear(year);
-				Cars = tempCars;
+				Makes = tempCars;
 			}
 			catch (Exception e)
 			{
