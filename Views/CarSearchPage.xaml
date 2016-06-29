@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-		BackgroundColor="#5D6360"
+		BackgroundColor="{StaticResource SecondaryColor}"
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 		xmlns:abstractions="clr-namespace:RoundedBoxView.Forms.Plugin.Abstractions;assembly=RoundedBoxView.Forms.Plugin.Abstractions"
 		xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
@@ -10,14 +10,14 @@
 	 <ContentPage.Resources>
                 <ResourceDictionary>
                     <Style x:Key="rowLabelStyle" TargetType="Label">
-						<Setter Property="TextColor" Value="#D6D6D6" />
+						<Setter Property="TextColor" Value="{StaticResource PrimaryTextColor}" />
 						<Setter Property="FontSize" Value="18"/>
                     </Style>
 			  		<Style x:Key="rowBackgroundStyle" TargetType="StackLayout">
-						<Setter Property="BackgroundColor" Value="#5D6360" />
+						<Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
                     </Style>
 					<Style x:Key="listViewStyle" TargetType="ListView">
-						<Setter Property="BackgroundColor" Value="#5D6360"/>
+						<Setter Property="BackgroundColor" Value="{StaticResource AccentColor}"/>
 						<Setter Property="RowHeight" Value="80"/>
 					</Style>
                 </ResourceDictionary>
@@ -33,24 +33,26 @@
       <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
-	<SearchBar BackgroundColor="#35B768" Placeholder="Search Model or Make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="#D6D6D6"/>
+	<SearchBar BackgroundColor="{StaticResource AccentColor}" Placeholder="Search Model or Make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="{StaticResource AccentTextColor}"/>
 
-    <ListView  Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding Makes}" ItemTapped="Handle_ItemTapped">
+    <ListView SeparatorColor="{StaticResource AccentColor}" Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding Makes}" ItemTapped="Handle_ItemTapped">
 	<ListView.ItemTemplate>
       <DataTemplate>
 		 <ViewCell>
               <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Orientation="Horizontal" Style="{StaticResource rowBackgroundStyle}" >
-              <BoxView Color="#35B768" WidthRequest="10" HeightRequest="78" VerticalOptions="Start"></BoxView>
+              	<Grid VerticalOptions="Center" HeightRequest="80" WidthRequest="80" HorizontalOptions="Start">
+              		<BoxView Color="{StaticResource SecondaryColor}" HeightRequest="70" WidthRequest="80"/>
 					<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
 						WidthRequest="60" HeightRequest="75"
 						DownsampleToViewSize="true"
 						Source = "{Binding imageUrl}">
 					</ffimageloading:CachedImage>
+				</Grid>
 					<Label VerticalOptions="Center" Style="{StaticResource rowLabelStyle}" Text="{Binding name}" HorizontalOptions="Center"/>
 					<Grid Margin="10" VerticalOptions="Center" HeightRequest="30" WidthRequest="30" HorizontalOptions="EndAndExpand">
-							<abstractions:RoundedBoxView BackgroundColor="#FF5D5D" HeightRequest="20" WidthRequest="20"  
+							<abstractions:RoundedBoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="20" WidthRequest="20"  
    								CornerRadius="15" />
-							<Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding modelList.Count}" />
+							<Label HorizontalOptions="Center" TextColor="{StaticResource SecondaryTextColor}" VerticalOptions="Center" Text="{Binding modelList.Count}" />
 						</Grid>              
 				</StackLayout>
         </ViewCell>

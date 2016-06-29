@@ -60,6 +60,8 @@
     <Compile Include="Models\Mpg.cs" />
     <Compile Include="Views\Custom\HorizontalImageList.cs" />
     <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Styling\AppColors.cs" />
+    <Compile Include="Styling\StyleLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
@@ -68,6 +70,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Views\" />
     <Folder Include="Views\Custom\" />
+    <Folder Include="Styling\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ModernHttpClient">

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
 		x:Name="pageroot"
+		BackgroundColor="{StaticResource SecondaryColor}"
 		xmlns="http://xamarin.com/schemas/2014/forms" 
 		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 		x:Class="CarSearch.CarMakeDetailView"
@@ -22,15 +23,24 @@
 		<cv:CarouselView x:Name="bigCarCarousel" Position="{Binding Source={x:Reference horizontalPreview}, Path=ActualElementIndex}" ItemsSource="{Binding Cars}" HorizontalOptions="FillAndExpand">
     		<cv:CarouselView.ItemTemplate>
         		<DataTemplate>
-        			<StackLayout BackgroundColor="Gray" VerticalOptions="FillAndExpand">
+        			<StackLayout BackgroundColor="{StaticResource PrimaryColor}" VerticalOptions="FillAndExpand">
 
+        				<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
+							WidthRequest="400" HeightRequest="200"
+							DownsampleToViewSize="true"
+							Aspect="AspectFill"
+							RetryCount="10"
+							RetryDelay="500"
+							Source="{Binding imageUrl}">
+						</ffimageloading:CachedImage>
 
+						<!-- TODO: simplify this with global or page styling -->
 						<StackLayout Margin="10">
-							<Label TextColor="White" Text="{Binding name}"/>
-							<Label TextColor="White" Text="{Binding year, StringFormat='Year: {0}'}" />
-							<Label TextColor="White" Text="{Binding Mpg.highway, StringFormat='MPG (Highway): {0}'}"/>
-							<Label TextColor="White" Text="{Binding Mpg.city, StringFormat='MPG (City): {0}'}"/>
-							<Label TextColor="White" Text="{Binding MSRP, StringFormat='Price (MSRP): ${0}'}"/>
+							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding name}"/>
+							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding year, StringFormat='Year: {0}'}" />
+							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding Mpg.highway, StringFormat='MPG (Highway): {0}'}"/>
+							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding Mpg.city, StringFormat='MPG (City): {0}'}"/>
+							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding MSRP, StringFormat='Price (MSRP): ${0}'}"/>
 						</StackLayout>
 							
 						<Button  Command="{Binding Source={x:Reference pageroot}, Path=BindingContext.SearchCommand}" CommandParameter="{Binding DescriptiveName}" Margin="10" BackgroundColor="Green" TextColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="EndAndExpand" Text="Find Dealerships" />
@@ -40,7 +50,7 @@
 		</cv:CarouselView>
 	</StackLayout>
 
-			<local:HorizontalImageList ActualElementIndex="{Binding Source={x:Reference bigCarCarousel}, Path=Position}"   x:Name="horizontalPreview" Grid.Row="1" IsEnabled="true" ItemsSource="{Binding Cars}"  BackgroundColor="Gray">
+			<local:HorizontalImageList ActualElementIndex="{Binding Source={x:Reference bigCarCarousel}, Path=Position}"   x:Name="horizontalPreview" Grid.Row="1" IsEnabled="true" ItemsSource="{Binding Cars}"  BackgroundColor="{StaticResource SecondaryColor}">
 				<local:HorizontalImageList.ItemTemplate>
 				<DataTemplate>
 						<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"

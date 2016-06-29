@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Diagnostics;
+using Xamarin.Forms;
 
 namespace CarSearch
 {
@@ -7,10 +8,15 @@ namespace CarSearch
 		public App()
 		{
 			InitializeComponent();
-
-			var navPage = new NavigationPage(new CarSearchPage() { Title = "Awesome Possum Car Search" } ) { BarBackgroundColor = Color.FromRgb(53, 183, 104) };
+			LoadStyles();
+			var navPage = new NavigationPage(new CarSearchPage() { Title = "Auto Pocket" } ) { BarTextColor=AppColors.AccentTextColor, BarBackgroundColor = AppColors.AccentColor };
 			//navPage.Tint = 
 			MainPage = navPage;
+		}
+
+		private void LoadStyles()
+		{
+			StyleLoader.Load(typeof(AppColors));
 		}
 
 		protected override void OnStart()

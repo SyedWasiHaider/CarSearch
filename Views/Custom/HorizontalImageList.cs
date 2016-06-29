@@ -252,7 +252,7 @@ namespace CarSearch
 
 			try
 			{
-				await this.ScrollView.ScrollToAsync(this.ActualElement.X - Width/ItemsOnFullPage, 0, false);
+				await this.ScrollView.ScrollToAsync(this.ActualElement.X - Width/ItemsOnFullPage, 0, true);
 			}
 			catch
 			{
