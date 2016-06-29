@@ -1,30 +1,39 @@
 ﻿using System;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace CarSearch
 {
-	public class CarModel : BaseViewModel, ISelectable
+	public class ModelItemViewModel : BaseViewModel, ISelectable
 	{
-		public CarModel()
+		public ModelItemViewModel()
 		{
 		}
 
+		private Model _model;
+		public Model Model
+		{
+			get
+			{
+				return _model;
+			}
 
-		//Automatically serialized properties
-		public string id { get; set; }
-		public string make { get; set; }
-		public string name { get; set; }
-		public CarYears [] years { get; set; }
+			set
+			{
+				_model = value;
+				RaisePropertyChanged();
+			}
+		}
 
-
-		//Manual or calculated properties (mostly because of how the API is setup).
 
 		public string DescriptiveName
 		{
 			get
 			{
-				return (id + " " + years.First().year).Replace("_", " ");
+				if (Model == null)
+				{
+					return String.Empty;
+				}
+				return (Model.id + " " + year).Replace("_", " ");
 			}
 		}
 
@@ -32,7 +41,11 @@ namespace CarSearch
 		{
 			get
 			{
-				return years.FirstOrDefault().year;
+				if (Model == null)
+				{
+					return 0;
+				}
+				return Model.years.FirstOrDefault().year;
 			}
 		}
 
@@ -52,8 +65,8 @@ namespace CarSearch
 			}
 		}
 
-		private Mpg _mpg;
-		public Mpg Mpg
+		private Mileage _mpg;
+		public Mileage Mpg
 		{
 			get
 			{
@@ -98,12 +111,12 @@ namespace CarSearch
 
 		public bool IsSelected
 		{
-			get;set;
+			get; set;
 		}
 
 		public int index
 		{
-			get;set;
+			get; set;
 		}
 	}
 }

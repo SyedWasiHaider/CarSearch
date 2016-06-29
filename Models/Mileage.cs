@@ -1,9 +1,9 @@
 ﻿using System;
 namespace CarSearch
 {
-	public class Mpg
+	public class Mileage
 	{
-		public Mpg()
+		public Mileage()
 		{
 		}
 

@@ -7,17 +7,20 @@ namespace CarSearch
 	{
 		async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
 		{
-			var make = (CarMake)e.Item;
-			((ListView)(sender)).SelectedItem = null;
-			await Navigation.PushAsync(new CarMakeDetailView() { BindingContext = new MakeDetailViewModel(make) });
+			var listView = (ListView)sender;
+			await Navigation.PushAsync(new CarMakeDetailView()
+			{
+				BindingContext = new MakeDetailsPageViewModel((MakeItemViewModel)listView.SelectedItem)
+			});
+			listView.SelectedItem = null;
 		}
 
-		SearchViewModel vm;
+		SearchPageViewModel vm;
 
 		public CarSearchPage()
 		{
 			InitializeComponent();
-			vm = new SearchViewModel();
+			vm = new SearchPageViewModel();
 			BindingContext = vm;
 		}
 

@@ -35,7 +35,7 @@
 
 	<SearchBar BackgroundColor="{StaticResource AccentColor}" Placeholder="Search Model or Make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="{StaticResource AccentTextColor}"/>
 
-    <ListView SeparatorColor="{StaticResource AccentColor}" Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding Makes}" ItemTapped="Handle_ItemTapped">
+    <ListView SeparatorColor="{StaticResource AccentColor}" Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding ItemsViewModel}" ItemTapped="Handle_ItemTapped">
 	<ListView.ItemTemplate>
       <DataTemplate>
 		 <ViewCell>
@@ -48,11 +48,11 @@
 						Source = "{Binding imageUrl}">
 					</ffimageloading:CachedImage>
 				</Grid>
-					<Label VerticalOptions="Center" Style="{StaticResource rowLabelStyle}" Text="{Binding name}" HorizontalOptions="Center"/>
+					<Label VerticalOptions="Center" Style="{StaticResource rowLabelStyle}" Text="{Binding Make.name}" HorizontalOptions="Center"/>
 					<Grid Margin="10" VerticalOptions="Center" HeightRequest="30" WidthRequest="30" HorizontalOptions="EndAndExpand">
 							<abstractions:RoundedBoxView BackgroundColor="{StaticResource SecondaryColor}" HeightRequest="20" WidthRequest="20"  
    								CornerRadius="15" />
-							<Label HorizontalOptions="Center" TextColor="{StaticResource SecondaryTextColor}" VerticalOptions="Center" Text="{Binding modelList.Count}" />
+							<Label HorizontalOptions="Center" TextColor="{StaticResource SecondaryTextColor}" VerticalOptions="Center" Text="{Binding Make.modelList.Count}" />
 						</Grid>              
 				</StackLayout>
         </ViewCell>

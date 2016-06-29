@@ -36,7 +36,7 @@
 
 						<!-- TODO: simplify this with global or page styling -->
 						<StackLayout Margin="10">
-							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding name}"/>
+							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding Model.name}"/>
 							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding year, StringFormat='Year: {0}'}" />
 							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding Mpg.highway, StringFormat='MPG (Highway): {0}'}"/>
 							<Label TextColor="{StaticResource PrimaryTextColor}" Text="{Binding Mpg.city, StringFormat='MPG (City): {0}'}"/>

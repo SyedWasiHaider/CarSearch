@@ -34,17 +34,17 @@ namespace CarSearch
 			return null;
 		}
 
-		public async Task<List<CarMake>> getAllCarsByYear(int year)
+		public async Task<List<Make>> getAllCarMakesByYear(int year)
 		{
 
 			var requestUri = String.Format(VEHICLE_BASE_URI, API_KEY, year);
 			var response = await client.GetAsync(requestUri);
-			List<CarMake> result = null;
+			List<Make> result = null;
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
 				var temp = JToken.Parse(content);
-				result = JsonConvert.DeserializeObject<List<CarMake>>(temp["makes"].ToString());
+				result = JsonConvert.DeserializeObject<List<Make>>(temp["makes"].ToString());
 			}
 			return result;
 		}

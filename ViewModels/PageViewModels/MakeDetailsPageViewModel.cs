@@ -10,13 +10,20 @@ using Xamarin.Forms;
 
 namespace CarSearch
 {
-	public class MakeDetailViewModel : BaseViewModel
+	public class MakeDetailsPageViewModel : BaseViewModel
 	{
-		public MakeDetailViewModel(CarMake make)
+		public MakeDetailsPageViewModel(MakeItemViewModel makeVM)
 		{
-			Cars = new ObservableCollection<CarModel>(make.modelList);
-			Name = make.name;
-			Url = make.imageUrl;
+			MakeViewModel = makeVM;
+			var tempCars = new ObservableCollection<ModelItemViewModel>();
+			foreach(var car in MakeViewModel.Make.modelList)
+			{
+				tempCars.Add(new ModelItemViewModel() { Model = car });
+			}
+			Cars = tempCars;
+
+			Name = makeVM.Make.name;
+			Url = makeVM.imageUrl;
 			PopulateCarImageUrls();
 			PopulateCarDescriptions();
 			SearchCommand = new Command
@@ -44,11 +51,11 @@ namespace CarSearch
 			{
 				try
 				{
-					var details = await carRestService.Value.getCarDetails(Name, Cars[i].name, Cars[i].year);
+					var details = await carRestService.Value.getCarDetails(Name, Cars[i].Model.name, Cars[i].year);
 					if (details != null && details["styles"].ToArray().Count() > 0)
 					{
 						Cars[i].engine = await JsonConvert.DeserializeObjectAsync<Engine>(details["styles"][0]["engine"].ToString());
-						Cars[i].Mpg = await JsonConvert.DeserializeObjectAsync<Mpg>(details["styles"][0]["MPG"].ToString());
+						Cars[i].Mpg = await JsonConvert.DeserializeObjectAsync<Mileage>(details["styles"][0]["MPG"].ToString());
 						Cars[i].MSRP =  await JsonConvert.DeserializeObjectAsync<int>(details["styles"][0]["price"]["baseMSRP"].ToString());
 					}
 				}
@@ -106,8 +113,22 @@ namespace CarSearch
 
 		}
 
-		ObservableCollection<CarModel> _cars = new ObservableCollection<CarModel>();
-		public ObservableCollection<CarModel> Cars
+		private MakeItemViewModel _makeViewModel;
+		public MakeItemViewModel MakeViewModel
+		{
+			get {
+				return _makeViewModel;
+			}
+			set
+			{
+				_makeViewModel = value;
+				RaisePropertyChanged();
+			}
+		}
+
+  
+		ObservableCollection<ModelItemViewModel> _cars = new ObservableCollection<ModelItemViewModel>();
+		public ObservableCollection<ModelItemViewModel> Cars
 		{
 			get
 			{

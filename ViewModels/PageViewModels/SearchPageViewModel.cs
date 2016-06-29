@@ -11,27 +11,27 @@ using System.Collections;
 
 namespace CarSearch
 {
-	public class SearchViewModel : BaseViewModel
+	public class SearchPageViewModel : BaseViewModel
 	{
 		
-		List<CarMake> _makes = new List<CarMake>();
-		public List<CarMake> Makes
+		List<MakeItemViewModel> _itemsViewModel = new List<MakeItemViewModel>();
+		public List<MakeItemViewModel> ItemsViewModel
 		{
 			get
 			{
 				if (!String.IsNullOrEmpty(ActiveSearchTerm))
 				{
-					return _makes.FindAll(make => make.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper()) ||
+					return _itemsViewModel.FindAll(item => item.Make.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper()) ||
 
-										  make.modelList.Any(car => car.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper())));
+										  item.Make.modelList.Any(car => car.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper())));
 				}
 				else {
-					return _makes;
+					return _itemsViewModel;
 				}
 			}
 			set
 			{
-				_makes = value;
+				_itemsViewModel = value;
 				RaisePropertyChanged();
 			}
 		}
@@ -47,21 +47,21 @@ namespace CarSearch
 			{
 				_activeSearchTerm = value;
 				RaisePropertyChanged();
-				RaisePropertyChanged("Makes");
+				RaisePropertyChanged("ItemsViewModel");
 			}
 		}
 
-		public SearchViewModel()
+		public SearchPageViewModel()
 		{
 		}
 
 		public async Task PopulateCarImageUrls()
 		{
-			var carNames = Makes.Select(car => car.name).ToArray();
+			var carNames = ItemsViewModel.Select(item => item.Make.name).ToArray();
 			var carUrls = await imageSearchService.Value.getImageUrls(carNames, "cars ");
-			for (int i = 0; i < Makes.Count(); i++)
+			for (int i = 0; i < ItemsViewModel.Count(); i++)
 			{
-				Makes[i].imageUrl = carUrls[i];
+				ItemsViewModel[i].imageUrl = carUrls[i];
 			}
 		}
 
@@ -70,8 +70,13 @@ namespace CarSearch
 			try
 			{
 				IsBusy = true;
-				var tempCars = await carRestService.Value.getAllCarsByYear(year);
-				Makes = tempCars;
+				var tempMakes = await carRestService.Value.getAllCarMakesByYear(year);
+				var items = new List<MakeItemViewModel>();
+				foreach (var make in tempMakes)
+				{
+					items.Add(new MakeItemViewModel() { Make = make });
+				}
+				ItemsViewModel = items;
 			}
 			catch (Exception e)
 			{
