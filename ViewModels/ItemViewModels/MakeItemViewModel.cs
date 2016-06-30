@@ -1,25 +1,12 @@
 ﻿using System;
 namespace CarSearch
 {
-	public class MakeItemViewModel : BaseViewModel
+	public class MakeItemViewModel : BaseImageItemViewModel
 	{
 		public MakeItemViewModel()
 		{
 		}
 
-		private string _imageUrl = "genericcar.png";
-		public string imageUrl
-		{
-			get
-			{
-				return _imageUrl;
-			}
-			set
-			{
-				_imageUrl = value;
-				RaisePropertyChanged();
-			}
-		}
 
 		private Make _make;
 		public Make Make

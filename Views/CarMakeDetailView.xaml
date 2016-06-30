@@ -27,7 +27,6 @@
 
         				<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
 							WidthRequest="400" HeightRequest="200"
-							DownsampleToViewSize="true"
 							Aspect="AspectFill"
 							RetryCount="10"
 							RetryDelay="500"
@@ -55,7 +54,6 @@
 				<DataTemplate>
 						<ffimageloading:CachedImage  Margin="10" VerticalOptions="Center"
 							WidthRequest="200" HeightRequest="140"
-							DownsampleToViewSize="true"
 							Aspect="AspectFill"
 							RetryCount="10"
 							RetryDelay="500"

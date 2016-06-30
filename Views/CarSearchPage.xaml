@@ -33,7 +33,14 @@
       <ColumnDefinition Width="Auto" />
     </Grid.ColumnDefinitions>
 
-	<SearchBar BackgroundColor="{StaticResource AccentColor}" Placeholder="Search Model or Make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="{StaticResource AccentTextColor}"/>
+	<Grid MinimumHeightRequest="50">
+	<Grid.ColumnDefinitions>
+      <ColumnDefinition Width="10*" />
+	  <ColumnDefinition Width="3*" />
+    </Grid.ColumnDefinitions>
+		<SearchBar  x:Name="searchBar" BackgroundColor="{StaticResource AccentColor}" Placeholder="Search Model or Make" Text="{Binding ActiveSearchTerm, Mode=TwoWay}" CancelButtonColor="{StaticResource AccentTextColor}"/>
+		<Button Margin="4" BorderWidth="2" BorderRadius="10" BorderColor="{StaticResource SecondaryTextColor}" BackgroundColor="{StaticResource SecondaryColor}" TextColor="{StaticResource SecondaryTextColor}" Text="Filter" Grid.Column="1" />
+	</Grid>
 
     <ListView SeparatorColor="{StaticResource AccentColor}" Style="{StaticResource listViewStyle}" Grid.Row="1" ItemsSource="{Binding ItemsViewModel}" ItemTapped="Handle_ItemTapped">
 	<ListView.ItemTemplate>

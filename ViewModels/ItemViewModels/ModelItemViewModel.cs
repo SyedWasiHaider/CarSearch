@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CarSearch
 {
-	public class ModelItemViewModel : BaseViewModel, ISelectable
+	public class ModelItemViewModel : BaseImageItemViewModel, ISelectable
 	{
 		public ModelItemViewModel()
 		{
@@ -91,20 +91,6 @@ namespace CarSearch
 			set
 			{
 				_msrp = value;
-				RaisePropertyChanged();
-			}
-		}
-
-		private string _imageUrl = "genericcar.png";
-		public string imageUrl
-		{
-			get
-			{
-				return _imageUrl;
-			}
-			set
-			{
-				_imageUrl = value;
 				RaisePropertyChanged();
 			}
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +15,7 @@ namespace CarSearch
 	{
 
 		const string API_KEY = "BAulUgxQChsXfI4xdE5bOMCD+8Ff/ihKokiL6rasLHw";
-		string IMAGE_SEARCH_URI = "https://api.datamarket.azure.com/Bing/Search/v1/Image?$format=JSON&$top=1";
+		string IMAGE_SEARCH_URI = "https://api.datamarket.azure.com/Bing/Search/v1/Image?$format=JSON&$top=1&ImageFilters='Size:Medium'";
 		HttpClient client;
 
 		public ImageSearchService()
@@ -47,7 +48,7 @@ namespace CarSearch
 			return String.Empty;
 		}
 
-		public async Task<string[]> getImageUrls(string[] queries, string extra = "")
+		public async Task<string[]> getImageUrls(string[] queries, List<BaseImageItemViewModel> imageViewModels, string extra = "")
 		{
 			var realm = Realm.GetInstance();
 			var results = new string[queries.Length];
@@ -60,9 +61,11 @@ namespace CarSearch
 				if (carImageUrl.Count() > 0)
 				{
 					results[i] = carImageUrl.First().url;
+					imageViewModels[i].imageUrl = results[i];
 				}
 				else {
 					results[i] = await getImageUrl(extra + queries[i]);
+					imageViewModels[i].imageUrl = results[i];
 					realm.Write(() =>
 					{
 						var newImageUrl = realm.CreateObject<ImageUrl>();

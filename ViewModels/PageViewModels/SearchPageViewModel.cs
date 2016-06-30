@@ -14,16 +14,16 @@ namespace CarSearch
 	public class SearchPageViewModel : BaseViewModel
 	{
 		
-		List<MakeItemViewModel> _itemsViewModel = new List<MakeItemViewModel>();
-		public List<MakeItemViewModel> ItemsViewModel
+		List<BaseImageItemViewModel> _itemsViewModel = new List<BaseImageItemViewModel>();
+		public List<BaseImageItemViewModel> ItemsViewModel
 		{
 			get
 			{
 				if (!String.IsNullOrEmpty(ActiveSearchTerm))
 				{
-					return _itemsViewModel.FindAll(item => item.Make.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper()) ||
+					return _itemsViewModel.FindAll(item => (item as MakeItemViewModel).Make.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper()) ||
 
-										  item.Make.modelList.Any(car => car.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper())));
+										  (item as MakeItemViewModel).Make.modelList.Any(car => car.name.ToUpper().StartsWith(ActiveSearchTerm.ToUpper())));
 				}
 				else {
 					return _itemsViewModel;
@@ -57,12 +57,9 @@ namespace CarSearch
 
 		public async Task PopulateCarImageUrls()
 		{
-			var carNames = ItemsViewModel.Select(item => item.Make.name).ToArray();
-			var carUrls = await imageSearchService.Value.getImageUrls(carNames, "cars ");
-			for (int i = 0; i < ItemsViewModel.Count(); i++)
-			{
-				ItemsViewModel[i].imageUrl = carUrls[i];
-			}
+			var carNames = ItemsViewModel.Select(item => (item as MakeItemViewModel).Make.name).ToArray();
+			await imageSearchService.Value.getImageUrls(carNames, ItemsViewModel, "cars ");
+
 		}
 
 		public async Task PopulateCarsByYear(int year = 2016)
@@ -71,7 +68,7 @@ namespace CarSearch
 			{
 				IsBusy = true;
 				var tempMakes = await carRestService.Value.getAllCarMakesByYear(year);
-				var items = new List<MakeItemViewModel>();
+				var items = new List<BaseImageItemViewModel>();
 				foreach (var make in tempMakes)
 				{
 					items.Add(new MakeItemViewModel() { Make = make });
