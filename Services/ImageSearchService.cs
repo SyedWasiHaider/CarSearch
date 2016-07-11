@@ -11,7 +11,7 @@ using Realms;
 namespace CarSearch
 {
 	//Poor man's image search because Edmund's Media API is too much of a hassle to get access to.
-	public class ImageSearchService
+	public class ImageSearchService : IImageSearchService
 	{
 
 		const string API_KEY = "BAulUgxQChsXfI4xdE5bOMCD+8Ff/ihKokiL6rasLHw";

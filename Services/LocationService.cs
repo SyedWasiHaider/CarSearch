@@ -8,7 +8,7 @@ using Plugin.Geolocator;
 
 namespace CarSearch
 {
-	public class LocationService
+	public class LocationService : ILocationService
 	{
 
 		const string API_KEY = "AtM3qjQiWJBmaLPDrhGWGvNUGmGEmDkezwFcM8jlnlwX_LvfHMfdpYWV_2ZRwWSe";

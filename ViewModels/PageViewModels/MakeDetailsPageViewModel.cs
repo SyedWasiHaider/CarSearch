@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Realms;
 using Xamarin.Forms;
+using XLabs.Ioc;
 
 namespace CarSearch
 {
@@ -31,7 +32,7 @@ namespace CarSearch
 				{
 					try
 					{
-						var zipCode = await locationService.Value.getCurrentZipCode();
+					var zipCode = await Resolver.Resolve<ILocationService>().getCurrentZipCode();
 						Device.OpenUri(new Uri($"https://www.google.com/search?q={searchObj.ToString()} dealerships near {zipCode}"));
 					}
 					catch(Exception e)
@@ -52,7 +53,7 @@ namespace CarSearch
 			{
 				try
 				{
-					var details = await carRestService.Value.getCarDetails(Name, (Cars[i] as ModelItemViewModel).Model.name, (Cars[i] as ModelItemViewModel).year);
+					var details = await Resolver.Resolve<ICarRestService>().getCarDetails(Name, (Cars[i] as ModelItemViewModel).Model.name, (Cars[i] as ModelItemViewModel).year);
 					if (details != null && details["styles"].ToArray().Count() > 0)
 					{
 						(Cars[i] as ModelItemViewModel).engine = await JsonConvert.DeserializeObjectAsync<Engine>(details["styles"][0]["engine"].ToString());
@@ -72,7 +73,7 @@ namespace CarSearch
 		public async void PopulateCarImageUrls()
 		{
 			var carNames = Cars.Select(car => (car as ModelItemViewModel).DescriptiveName).ToArray();
-			await imageSearchService.Value.getImageUrls(carNames, Cars, "car ");
+			await Resolver.Resolve<IImageSearchService>().getImageUrls(carNames, Cars, "car ");
 		}
 
 		private string _url;

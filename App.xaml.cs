@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using Xamarin.Forms;
+using XLabs.Ioc;
+using System.Reflection;
 
 namespace CarSearch
 {
@@ -8,6 +10,17 @@ namespace CarSearch
 		public App()
 		{
 			InitializeComponent();
+
+			var resolverContainer = new SimpleContainer();
+
+			resolverContainer.Register<ILocationService, LocationService>();
+			resolverContainer.Register<IImageSearchService, ImageSearchService>();
+			resolverContainer.Register<ICarRestService, CarRestService>();
+			resolverContainer.Register<SearchPageViewModel>(r => new SearchPageViewModel(r.Resolve<IImageSearchService>(), r.Resolve<ICarRestService>()));
+
+			Resolver.SetResolver(resolverContainer.GetResolver());
+
+
 			LoadStyles();
 			var navPage = new NavigationPage(new CarSearchPage() { Title = "Auto Pocket" } ) { BarTextColor=AppColors.AccentTextColor, BarBackgroundColor = AppColors.AccentColor };
 			//navPage.Tint = 

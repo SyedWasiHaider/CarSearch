@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace CarSearch
 {
-	public class CarRestService
+	public class CarRestService : ICarRestService
 	{
 		const string API_KEY = "sbga8ynjh5bxvmubk2ab2rer";
 		string VEHICLE_BASE_URI = "https://api.edmunds.com/api/vehicle/v2/makes?api_key={0}&year={1}";

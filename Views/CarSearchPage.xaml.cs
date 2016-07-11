@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Xamarin.Forms;
+using XLabs.Ioc;
 
 namespace CarSearch
 {
@@ -20,7 +21,7 @@ namespace CarSearch
 		public CarSearchPage()
 		{
 			InitializeComponent();
-			vm = new SearchPageViewModel();
+			vm = Resolver.Resolve<SearchPageViewModel>();
 			BindingContext = vm;
 		}
 

@@ -65,6 +65,9 @@
     <Compile Include="ViewModels\ItemViewModels\ModelItemViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels\MakeItemViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModels\BaseImageItemViewModel.cs" />
+    <Compile Include="Services\Interfaces\ICarRestService.cs" />
+    <Compile Include="Services\Interfaces\IImageSearchService.cs" />
+    <Compile Include="Services\Interfaces\ILocationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
@@ -76,6 +79,7 @@
     <Folder Include="Styling\" />
     <Folder Include="ViewModels\PageViewModels\" />
     <Folder Include="ViewModels\ItemViewModels\" />
+    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ModernHttpClient">
@@ -131,6 +135,18 @@
     </Reference>
     <Reference Include="Plugin.Geolocator.Abstractions">
       <HintPath>packages\Xam.Plugin.Geolocator.3.0.4\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10+UAP10\Plugin.Geolocator.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector.Diagnostics">
+      <HintPath>packages\SimpleInjector.2.7.3\lib\portable-net4+sl4+wp8+win8+wpa81\SimpleInjector.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector">
+      <HintPath>packages\SimpleInjector.2.7.3\lib\portable-net4+sl4+wp8+win8+wpa81\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Ioc">
+      <HintPath>packages\XLabs.IoC.2.0.5782\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1+Xamarin.iOS10\XLabs.Ioc.dll</HintPath>
+    </Reference>
+    <Reference Include="XLabs.Ioc.SimpleInjector">
+      <HintPath>packages\XLabs.IoC.SimpleInjector.2.0.5782\lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1\XLabs.Ioc.SimpleInjector.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -51,14 +51,19 @@ namespace CarSearch
 			}
 		}
 
-		public SearchPageViewModel()
+		private IImageSearchService imageSearchService;
+		private ICarRestService carRestService;
+
+		public SearchPageViewModel(IImageSearchService imgService, ICarRestService carService)
 		{
+			imageSearchService = imgService;
+			carRestService = carService;
 		}
 
 		public async Task PopulateCarImageUrls()
 		{
 			var carNames = ItemsViewModel.Select(item => (item as MakeItemViewModel).Make.name).ToArray();
-			await imageSearchService.Value.getImageUrls(carNames, ItemsViewModel, "cars ");
+			await imageSearchService.getImageUrls(carNames, ItemsViewModel, "cars ");
 
 		}
 
@@ -67,7 +72,7 @@ namespace CarSearch
 			try
 			{
 				IsBusy = true;
-				var tempMakes = await carRestService.Value.getAllCarMakesByYear(year);
+				var tempMakes = await carRestService.getAllCarMakesByYear(year);
 				var items = new List<BaseImageItemViewModel>();
 				foreach (var make in tempMakes)
 				{
